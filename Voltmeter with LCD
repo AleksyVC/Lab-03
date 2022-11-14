@@ -1,0 +1,39 @@
+//voltage value displayed on the LCD
+// include the library code:
+#include <LiquidCrystal.h>
+
+// initialize the library by associating any needed LCD interface pin
+// with the arduino pin number it is connected to
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+const int analogInPin = A0;  // Analog input pin that the potentiometer is attached to
+
+int sensorValue = 0; //value from the potentiometer
+
+void setup(){
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+  // Print a message to the LCD.
+  lcd.print("Voltage = ");
+  
+
+}
+
+void loop() {
+  // set the cursor to column 0, line 1
+  lcd.setCursor(10, 0);
+
+  // read the analog input value:
+  sensorValue = analogRead(analogInPin);
+
+  
+  float y = sensorValue;  //value of the potentiometer
+  float m = 204.6;       
+  float x = y/m;          //conversion from bit value to voltage
+  
+  lcd.print(x);
+
+  // wait 2 milliseconds before the next loop for the analog-to-digital
+  // converter to settle after the last reading:
+  delay(2);
